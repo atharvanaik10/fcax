@@ -14,5 +14,5 @@ As far as background knowledge about actually building it goes, I've never used 
 ### Strech Goals
 If I finish early, some stretch goals can be:
 * Get user input for color correction (for fine tuning)
-* Implement object detection within the vieo
+* Implement object detection within the video
 
