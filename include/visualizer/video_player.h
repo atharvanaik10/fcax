@@ -1,8 +1,19 @@
 //
 // Created by Atharva Naik on 15/11/20.
 //
+#pragma once
 
-#ifndef FINAL_PROJECT_ATHARVANAIK10_VIDEO_PLAYER_H
-#define FINAL_PROJECT_ATHARVANAIK10_VIDEO_PLAYER_H
+#include "../core/frame_extractor.h"
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
 
-#endif //FINAL_PROJECT_ATHARVANAIK10_VIDEO_PLAYER_H
+namespace fcax {
+
+namespace visualizer {
+class VideoPlayer : public ci::app::App {
+ public:
+  VideoPlayer();
+};
+}
+}

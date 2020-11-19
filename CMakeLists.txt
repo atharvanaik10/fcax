@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 11)
-project(video-processor)
+project(final-cut-amateur-x)
 
 # This tells the compiler to not aggressively optimize and
 # to include debugging information so that the debugger
@@ -25,6 +25,8 @@ endif()
 # FetchContent added in CMake 3.11, downloads during the configure step
 include(FetchContent)
 
+set(FETCHCONTENT_QUIET off)
+
 # FetchContent_MakeAvailable was not added until CMake 3.14
 if(${CMAKE_VERSION} VERSION_LESS 3.14)
     include(cmake/add_FetchContent_MakeAvailable.cmake)
@@ -44,6 +46,10 @@ if(NOT catch2_POPULATED)
     target_include_directories(catch2 INTERFACE ${catch2_SOURCE_DIR}/single_include)
 endif()
 
+#Add OpenCV
+find_package(OpenCV REQUIRED)
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+
 get_filename_component(CINDER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../" ABSOLUTE)
 get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
@@ -52,21 +58,23 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 list(APPEND CORE_SOURCE_FILES
         src/core/frame_extractor.cpp)
 
-list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
+list(APPEND SOURCE_FILES
+        ${CORE_SOURCE_FILES}
         src/visualizer/video_player.cpp)
 
-list(APPEND TEST_FILES tests/frame_test.cpp)
+list(APPEND TEST_FILES
+        tests/frame_test.cpp)
 
 ci_make_app(
-        APP_NAME        video-main
+        APP_NAME        final-cut-amateur-x
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         apps/video_processor_main.cpp ${SOURCE_FILES}
+        SOURCES apps/final_cut_amateur.cpp ${SOURCE_FILES}
         INCLUDES        include
+        LIBRARIES       ${OpenCV_LIBS}
 )
 
-
 ci_make_app(
-        APP_NAME        video-test
+        APP_NAME        fcax-test
         CINDER_PATH     ${CINDER_PATH}
         SOURCES         tests/frame_test.cpp ${SOURCE_FILES} ${TEST_FILES}
         INCLUDES        include
