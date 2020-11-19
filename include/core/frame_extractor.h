@@ -16,7 +16,7 @@ namespace fcax {
 
 class FrameExtractor {
  public:
-
+  std::vector<cv::Mat> GetFrames() { return frames_; }
   friend std::ofstream& operator<<(std::ofstream &out_folder,
                                    FrameExtractor &extractor);
   friend std::string& operator>>(std::string &in_file,

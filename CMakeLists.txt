@@ -78,7 +78,7 @@ ci_make_app(
         CINDER_PATH     ${CINDER_PATH}
         SOURCES         tests/frame_test.cpp ${SOURCE_FILES} ${TEST_FILES}
         INCLUDES        include
-        LIBRARIES       catch2
+        LIBRARIES       catch2 ${OpenCV_LIBS}
 )
 
 if(MSVC)
