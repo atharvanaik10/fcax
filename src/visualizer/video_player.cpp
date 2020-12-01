@@ -10,9 +10,12 @@ namespace visualizer {
 
 VideoPlayer::VideoPlayer() {
   FrameExtractor extractor;
-  std::string file = "/Users/atharvanaik/Desktop/opencvtest.MOV";
-  file>>extractor;
-}
+  std::string in_file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
+      "FinalProject/final-project-atharvanaik10/tests/data/test1.MOV";
+  in_file>>extractor;
 
 }
-}
+
+} // namespace visualizer
+
+} // namespace fcax

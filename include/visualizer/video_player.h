@@ -11,9 +11,12 @@
 namespace fcax {
 
 namespace visualizer {
+
 class VideoPlayer : public ci::app::App {
  public:
   VideoPlayer();
 };
-}
-}
+
+} // namespace visualizer
+
+} // namespace fcax
