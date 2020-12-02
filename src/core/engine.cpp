@@ -28,5 +28,11 @@ std::string& operator>>(std::string& in_file, Engine &engine) {
   return in_file;
 }
 
+void Engine::Stabilize() {
+  frames_>>stabilizer_;
+  stabilizer_.Stabilize();
+  std::vector<cv::Mat> stabilizes_frames = stabilizer_.GetFrames();
+}
+
 } // namespace fcax
 
