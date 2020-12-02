@@ -1,17 +1,16 @@
 //
 // Created by Atharva Naik on 15/11/20.
 //
-#include "core/frame_extractor.h"
+#include "core/engine.h"
 
 namespace fcax{
 
-std::ofstream& operator<<(std::ofstream& out_folder,
-                          FrameExtractor& extractor) {
+std::ofstream& operator<<(std::ofstream& out_folder, Engine &engine) {
 
   return out_folder;
 }
 
-std::string& operator>>(std::string& in_file, FrameExtractor& extractor) {
+std::string& operator>>(std::string& in_file, Engine &engine) {
   cv::VideoCapture video(in_file);
   //try to open video
   if(!video.isOpened()) {
@@ -22,7 +21,7 @@ std::string& operator>>(std::string& in_file, FrameExtractor& extractor) {
   cv::Mat frame;
   //read frame and add to vector
   while(video.read(frame)) {
-    extractor.frames_.push_back(frame);
+    engine.frames_.push_back(frame);
     count++;
   }
   std::cout<<"Read "<<count<<" frames"<<std::endl;

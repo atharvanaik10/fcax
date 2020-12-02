@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../core/frame_extractor.h"
+#include "../core/engine.h"
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"

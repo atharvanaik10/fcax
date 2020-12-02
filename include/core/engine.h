@@ -1,42 +1,42 @@
 //
 // Created by Atharva Naik on 15/11/20.
 //
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
-#include "opencv2/opencv.hpp"
-
+#include "stabilizer.h"
 
 #pragma once
 
 namespace fcax {
 
-class FrameExtractor {
+class Engine {
  public:
   std::vector<cv::Mat> GetFrames() { return frames_; }
+  void Stabilize();
 
   /**
    * Output operator writes frames to file
-   * @param out_folder folder to write to
-   * @param extractor extractor
+   * @param out_folder folder t o write to
+   * @param Engine engine
    * @return
    */
   friend std::ofstream& operator<<(std::ofstream &out_folder,
-                                   FrameExtractor &extractor);
+                                   Engine &engine);
   
   /**
    * Input operator takes in a filename to extract frames from
    * @param in_file filename of video file
-   * @param extractor extractor
+   * @param Engine engine
    * @return filename
    */
-  friend std::string& operator>>(std::string &in_file,
-                                  FrameExtractor &extractor);
+  friend std::string& operator>>(std::string &in_file, Engine &engine);
  private:
   std::vector<cv::Mat> frames_;
+  Stabilizer stabilizer_;
 };
 
 } // namespace fcax
