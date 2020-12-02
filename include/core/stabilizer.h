@@ -21,6 +21,11 @@ class Stabilizer {
       (std::vector<cv::Mat> &frames, Stabilizer &stabilizer);
  private:
   std::vector<cv::Mat> frames_;
+  void SetTranformationMatrix();
+  void GetCumulativeSum();
+  double dx_;
+  double dy_;
+  double dangle_;
 
 };
 

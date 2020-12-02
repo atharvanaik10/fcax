@@ -9,10 +9,15 @@ std::vector<cv::Mat>& operator>>(std::vector<cv::Mat> &frames,
                                  Stabilizer& stabilizer) {
   for(cv::Mat frame:frames) {
     cv::Mat greyed;
+    //convert frames to grayscale (color is not needed to analyze movement)
     cvtColor(frame,greyed, cv::COLOR_BGR2GRAY);
     stabilizer.frames_.push_back(greyed);
   }
   return frames;
+}
+
+void Stabilizer::Stabilize() {
+
 }
 
 }

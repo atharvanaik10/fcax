@@ -36,7 +36,10 @@ class Engine {
   friend std::string& operator>>(std::string &in_file, Engine &engine);
  private:
   std::vector<cv::Mat> frames_;
+  std::vector<cv::Mat> curr_frames_;
   Stabilizer stabilizer_;
+  double fps_;
+  cv::Size frame_size_;
 };
 
 } // namespace fcax
