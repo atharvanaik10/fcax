@@ -20,8 +20,10 @@ std::vector<cv::Mat> Stabilizer::Stabilize() {
   std::vector<cv::Mat> transforms;
   CalculateTransforms(transforms);
   std::cout<<"Calculated transforms"<<std::endl;
+
   std::vector<std::vector<double>> path = GetPathFromTransforms(transforms);
   std::cout<<"Calculated path transforms"<<std::endl;
+
   std::vector<std::vector<double>> smooth_path = Smoothen(path,
                                                           kSmoothingRadius);
   std::cout<<"Calculated smooth path"<<std::endl;
