@@ -3,15 +3,16 @@
 //
 #include "core/engine.h"
 
-namespace fcax{
+namespace fcax {
 
-std::ofstream& operator<<(std::ofstream& out_folder, Engine &engine) {
+std::string& operator<<(std::string& out_file, const Engine &engine) {
   cv::VideoWriter video_out(
-      "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/result.mp4",
-      cv::VideoWriter::fourcc('M','J','P','G'),
+      out_file,cv::VideoWriter::fourcc('M','J','P','G'),
       engine.fps_,engine.frame_size_,true);
-  return out_folder;
+  for(cv::Mat frame:engine.curr_frames_){
+    video_out.write(frame);
+  }
+  return out_file;
 }
 
 std::string& operator>>(std::string& in_file, Engine &engine) {

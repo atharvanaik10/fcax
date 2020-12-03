@@ -12,7 +12,13 @@ VideoPlayer::VideoPlayer() {
   Engine engine;
   std::string in_file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
       "FinalProject/final-project-atharvanaik10/tests/data/test1.MOV";
+  std::string out_file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
+      "FinalProject/final-project-atharvanaik10/tests/data/result.mp4";
   in_file>>engine;
+  engine.Stabilize();
+  out_file<<engine;
+
+
 
 }
 

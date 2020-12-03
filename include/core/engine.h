@@ -16,6 +16,8 @@ namespace fcax {
 class Engine {
  public:
   std::vector<cv::Mat> GetFrames() { return frames_; }
+  std::vector<cv::Mat> GetCurrFrames() { return curr_frames_; }
+
   void Stabilize();
 
   /**
@@ -24,8 +26,7 @@ class Engine {
    * @param Engine engine
    * @return
    */
-  friend std::ofstream& operator<<(std::ofstream &out_folder,
-                                   Engine &engine);
+  friend std::string& operator<<(std::string& out_file, const Engine &engine);
   
   /**
    * Input operator takes in a filename to extract frames from
