@@ -6,12 +6,16 @@
 namespace fcax {
 
 std::string& operator<<(std::string& out_file, const Engine &engine) {
+  std::cout<<"fps " << engine.fps_<<std::endl;
   cv::VideoWriter video_out(
-      out_file,cv::VideoWriter::fourcc('M','J','P','G'),
-      engine.fps_,engine.frame_size_,true);
+      out_file,cv::VideoWriter::fourcc('m','p','4','v'),
+      engine.fps_,engine.frame_size_);
   for(cv::Mat frame:engine.curr_frames_){
     video_out.write(frame);
+    imshow("f",frame);
+    cv::waitKey(1);
   }
+  video_out.release();
   return out_file;
 }
 
@@ -22,25 +26,39 @@ std::string& operator>>(std::string& in_file, Engine &engine) {
     throw std::invalid_argument("File cannot be opened");
   }
   engine.fps_ = video_in.get(cv::CAP_PROP_FPS);
-  engine.frame_size_ = cv::Size((int)video_in.get(cv::CAP_PROP_FRAME_HEIGHT),
+  engine.frame_size_ = cv::Size((int)video_in.get(cv::CAP_PROP_FRAME_WIDTH),
                                 (int)video_in.get(cv::CAP_PROP_FRAME_HEIGHT));
   //add frame counter
   size_t count = 0;
   cv::Mat frame;
   //read frame and add to vector
   while(video_in.read(frame)) {
-    engine.frames_.push_back(frame);
+    cv::Mat new_frame;
+    cv::cvtColor(frame,new_frame,cv::COLOR_BGR2RGB);
+    cv::Mat newer_frame;
+    cv::cvtColor(new_frame,newer_frame,cv::COLOR_RGB2BGR);
+    //cv::cvtColor(new_frame,frame,cv::COLOR_RGB2BGR);
+    engine.frames_.push_back(newer_frame);
     count++;
   }
   std::cout<<"Read "<<count<<" frames"<<std::endl;
   engine.curr_frames_ = engine.frames_;
+  video_in.release();
   return in_file;
 }
 
 void Engine::Stabilize() {
   frames_>>stabilizer_;
-  stabilizer_.Stabilize();
-  curr_frames_ = stabilizer_.GetFrames();
+
+  std::vector<cv::Mat> smooth_transforms = stabilizer_.Stabilize();
+  for(int i = 0; i < curr_frames_.size()-1; i++) {
+    cv::warpAffine(curr_frames_[i],
+                   curr_frames_[i],
+                   smooth_transforms[i],
+                   curr_frames_[i].size());
+    std::cout<<i<<std::endl;
+  }
+
 }
 
 } // namespace fcax

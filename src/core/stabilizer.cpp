@@ -16,19 +16,35 @@ std::vector<cv::Mat>& operator>>(std::vector<cv::Mat> &frames,
   return frames;
 }
 
-void Stabilizer::Stabilize() {
+std::vector<cv::Mat> Stabilizer::Stabilize() {
   std::vector<cv::Mat> transforms;
   CalculateTransforms(transforms);
-
+  std::cout<<"Calculated transforms"<<std::endl;
   std::vector<std::vector<double>> path = GetPathFromTransforms(transforms);
-
+  std::cout<<"Calculated path transforms"<<std::endl;
   std::vector<std::vector<double>> smooth_path = Smoothen(path,
                                                           kSmoothingRadius);
+  std::cout<<"Calculated smooth path"<<std::endl;
 
+  std::vector<cv::Mat> smooth_transforms;
+  std::cout<<"Calculated smooth transforms"<<std::endl;
+
+  for(size_t i = 0; i < transforms.size(); i++) {
+    double residual_x = smooth_path[i][0] - path[i][0];
+    double residual_y = smooth_path[i][1] - path[i][1];
+    double residual_angle = smooth_path[i][2] - path[i][2];
+
+
+    smooth_transforms.push_back(GetTranformationMatrix(
+        transforms[i].at<double>(0,2) + residual_x,
+        transforms[i].at<double>(1,2) + residual_y,
+        atan2(transforms[i].at<double>(1,0),
+            transforms[i].at<double>(0,0)) + residual_angle));
+  }
+
+  return smooth_transforms;
 }
 
-
-//todo check
 cv::Mat Stabilizer::GetTranformationMatrix(double d_x, double d_y, double d_a) {
   //create empty matrix with type double
   cv::Mat matrix(2,3,CV_64F);
@@ -43,7 +59,7 @@ cv::Mat Stabilizer::GetTranformationMatrix(double d_x, double d_y, double d_a) {
 }
 
 void Stabilizer::CalculateTransforms(std::vector<cv::Mat> &transforms) {
-  for(int i = 1; i < frames_.size() - 2; i++) {
+  for(int i = 1; i < frames_.size(); i++) {
     std::vector<cv::Point2f> prev_feature_points;
     std::vector<cv::Point2f> curr_feature_points;
 

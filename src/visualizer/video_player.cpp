@@ -11,14 +11,12 @@ namespace visualizer {
 VideoPlayer::VideoPlayer() {
   Engine engine;
   std::string in_file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/test1.MOV";
+      "FinalProject/final-project-atharvanaik10/tests/data/test2.mp4";
   std::string out_file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/result.mp4";
+      "FinalProject/final-project-atharvanaik10/tests/data/stabresult.mp4";
   in_file>>engine;
   engine.Stabilize();
   out_file<<engine;
-
-
 
 }
 

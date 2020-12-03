@@ -15,7 +15,7 @@ namespace fcax {
 
 class Stabilizer {
  public:
-  void Stabilize();
+  std::vector<cv::Mat> Stabilize();
 
   std::vector<cv::Mat> GetFrames() { return frames_; }
 

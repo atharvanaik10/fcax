@@ -15,6 +15,10 @@ namespace visualizer {
 class VideoPlayer : public ci::app::App {
  public:
   VideoPlayer();
+
+ private:
+  std::vector<cv::Mat> frames_;
+
 };
 
 } // namespace visualizer
