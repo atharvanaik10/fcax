@@ -25,8 +25,6 @@ class Stabilizer {
  private:
   std::vector<cv::Mat> frames_;
 
-
-
   cv::Mat GetTranformationMatrix(double d_x, double d_y, double d_a);
 
 };

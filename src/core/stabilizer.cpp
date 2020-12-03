@@ -19,7 +19,7 @@ std::vector<cv::Mat>& operator>>(std::vector<cv::Mat> &frames,
 void Stabilizer::Stabilize() {
   std::vector<cv::Mat> transforms;
 
-  for(int i = 1; i < frames_.size() - 2; i++){
+  for(int i = 1; i < frames_.size() - 2; i++) {
     std::vector<cv::Point2f> prev_feature_points;
     std::vector<cv::Point2f> curr_feature_points;
 
@@ -51,6 +51,20 @@ void Stabilizer::Stabilize() {
 
     transforms.push_back(transform);
 
+  }
+
+  std::vector<std::vector<double>> path;
+
+  double x = 0;
+  double y = 0;
+  double angle = 0;
+
+  for(size_t i = 0; i < transforms.size();i++) {
+    x += transforms[i].at<double>(0,2);
+    y += transforms[i].at<double>(1,2);
+    angle += atan2(transforms[i].at<double>(1,0),
+        transforms[i].at<double>(0,0));
+    path.push_back({x,y,angle});
   }
 
 }
