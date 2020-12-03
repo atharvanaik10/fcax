@@ -71,8 +71,8 @@ void Stabilizer::CalculateTransforms(std::vector<cv::Mat> &transforms) {
         //vector to store feature points
         prev_feature_points,
         200,
-        0.01,
-        30);
+        0.1,
+        15);
 
     std::vector<uchar> status;
     std::vector<float> err;

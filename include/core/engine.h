@@ -35,6 +35,7 @@ class Engine {
    * @return filename
    */
   friend std::string& operator>>(std::string &in_file, Engine &engine);
+
  private:
   std::vector<cv::Mat> frames_;
   std::vector<cv::Mat> curr_frames_;

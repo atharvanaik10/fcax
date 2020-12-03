@@ -37,7 +37,7 @@ class Stabilizer {
       (std::vector<cv::Mat> &frames, Stabilizer &stabilizer);
 
  private:
-  const int kSmoothingRadius = 10;
+  const int kSmoothingRadius = 20;
   std::vector<cv::Mat> frames_;
 
   /**

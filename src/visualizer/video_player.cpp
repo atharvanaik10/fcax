@@ -10,15 +10,12 @@ namespace visualizer {
 
 VideoPlayer::VideoPlayer() {
   Engine engine;
-  std::string in_file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/stabtest.mov";
-  std::string out_file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/stabresult.mp4";
-  in_file>>engine;
+  in_file_>>engine;
   engine.Stabilize();
-  out_file<<engine;
-
+  out_file_<<engine;
+  //ci::app::setWindowSize(kHeight,kWidth);
 }
+
 
 } // namespace visualizer
 

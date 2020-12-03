@@ -12,7 +12,7 @@ std::string& operator<<(std::string& out_file, const Engine &engine) {
       engine.fps_,engine.frame_size_);
   for(cv::Mat frame:engine.curr_frames_){
     video_out.write(frame);
-    imshow("f",frame);
+    imshow("frame",frame);
     cv::waitKey(1);
   }
   video_out.release();
@@ -37,7 +37,6 @@ std::string& operator>>(std::string& in_file, Engine &engine) {
     cv::cvtColor(frame,new_frame,cv::COLOR_BGR2RGB);
     cv::Mat newer_frame;
     cv::cvtColor(new_frame,newer_frame,cv::COLOR_RGB2BGR);
-    //cv::cvtColor(new_frame,frame,cv::COLOR_RGB2BGR);
     engine.frames_.push_back(newer_frame);
     count++;
   }
@@ -56,8 +55,8 @@ void Engine::Stabilize() {
                    curr_frames_[i],
                    smooth_transforms[i],
                    curr_frames_[i].size());
-    std::cout<<i<<std::endl;
   }
+  std::cout<<"Stabilized"<<std::endl;
 
 }
 
