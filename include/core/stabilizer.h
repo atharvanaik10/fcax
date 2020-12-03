@@ -23,10 +23,18 @@ class Stabilizer {
       (std::vector<cv::Mat> &frames, Stabilizer &stabilizer);
 
  private:
+  const int kSmoothingRadius = 5;
   std::vector<cv::Mat> frames_;
+
+  void CalculateTransforms(std::vector<cv::Mat> &transforms);
+
+  std::vector<std::vector<double>> GetPathFromTransforms(
+      const std::vector<cv::Mat> &transforms);
 
   cv::Mat GetTranformationMatrix(double d_x, double d_y, double d_a);
 
+  std::vector<std::vector<double>> Smoothen(
+      std::vector<std::vector<double>> &original_path, int radius);
 };
 
 } // namespace fcax
