@@ -18,6 +18,10 @@ class Engine {
   std::vector<cv::Mat> GetFrames() { return frames_; }
   std::vector<cv::Mat> GetCurrFrames() { return curr_frames_; }
 
+  /**
+   * Passes in read frames to stabilizer, gets stabilized transform, and
+   * applies transform to frames to stabilize them.
+   */
   void Stabilize();
 
   /**
