@@ -15,9 +15,7 @@ VideoPlayer::VideoPlayer() {
   ci::app::setWindowSize(kWidth,kHeight);
 }
 
-void VideoPlayer::setup() {
-  thread_ = std::shared_ptr<std::thread>(new std::thread(std::bind(&VideoPlayer::Backend, this)));
-}
+
 
 void VideoPlayer::Backend() {
   processed_ = false;
