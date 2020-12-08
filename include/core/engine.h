@@ -9,6 +9,9 @@
 
 #include "stabilizer.h"
 
+#include "opencv2/opencv.hpp"
+#include "opencv2/core/opengl.hpp"
+
 #pragma once
 
 namespace fcax {
@@ -17,6 +20,8 @@ class Engine {
  public:
   std::vector<cv::Mat> GetFrames() { return frames_; }
   std::vector<cv::Mat> GetCurrFrames() { return curr_frames_; }
+
+  std::vector<cv::ogl::Texture2D> GetTextures();
 
   /**
    * Passes in read frames to stabilizer, gets stabilized transform, and

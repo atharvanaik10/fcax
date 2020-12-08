@@ -3,6 +3,8 @@
 //
 #include "core/engine.h"
 
+#include <opencv2/core/opengl.hpp>
+
 namespace fcax {
 
 std::string& operator<<(std::string& out_file, const Engine &engine) {
@@ -58,6 +60,16 @@ void Engine::Stabilize() {
   }
   std::cout<<"Stabilized"<<std::endl;
 
+}
+
+std::vector<cv::ogl::Texture2D> Engine::GetTextures() {
+  std::vector<cv::ogl::Texture2D> textures;
+  for(cv::Mat frame:frames_) {
+    cv::ogl::Texture2D tex;
+    cv::ogl::convertToGLTexture2D(frame, tex);
+    textures.push_back(tex);
+  }
+  return textures;
 }
 
 } // namespace fcax

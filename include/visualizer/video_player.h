@@ -6,8 +6,12 @@
 
 #include "../core/engine.h"
 #include "cinder/app/App.h"
+#include "cinder/app/AppBase.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "../other/CinderOpenCV.h"
+#include "cinder/Thread.h"
+
 
 namespace fcax {
 
@@ -17,11 +21,19 @@ class VideoPlayer : public ci::app::App {
  public:
   VideoPlayer();
 
+  void draw() override;
 
+  void setup() override;
+
+  void Backend();
  private:
-//  const int kHeight = 1080;
-//  const int kWidth = 1920;
+  std::shared_ptr<std::thread> thread_;
+  bool processed_ = false;
+  Engine engine_;
+  const int kHeight = 720;
+  const int kWidth = 1280;
   std::vector<cv::Mat> frames_;
+  std::vector<cv::Mat> curr_frames_;
   std::string in_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
       "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.MOV";
   std::string out_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
