@@ -3,7 +3,10 @@
 //
 #pragma once
 
-
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <filesystem>
 #include "../core/engine.h"
 #include "cinder/app/App.h"
 #include "cinder/app/AppBase.h"
@@ -13,7 +16,6 @@
 #include "cinder/Thread.h"
 #include "cinder/qtime/QuickTimeImplAvf.h"
 #include "cinder/qtime/QuickTimeGlImplAvf.h"
-
 
 namespace fcax {
 
@@ -35,6 +37,8 @@ class VideoPlayer : public ci::app::App {
    */
   void draw() override;
 
+  void HandlePlaybar();
+
   void keyDown(ci::app::KeyEvent event) override;
 
   /**
@@ -50,6 +54,9 @@ class VideoPlayer : public ci::app::App {
 
   const int kHeight = 720;
   const int kWidth = 1280;
+  const int kPlaybarHeight = 20;
+  const int kPlaybarLength = 800;
+  const int kPlaybarPadding = 50;
 
   ci::qtime::MovieGlRef mov_before_;
   ci::qtime::MovieGlRef mov_after_;
@@ -58,8 +65,10 @@ class VideoPlayer : public ci::app::App {
 
   std::string in_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
       "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.MOV";
+  std::string temp_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
+      "FinalProject/final-project-atharvanaik10/tests/data/fcax_before.MOV";
   std::string out_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/stabresult2.mp4";
+      "FinalProject/final-project-atharvanaik10/tests/data/fcax_after.mp4";
 };
 
 } // namespace visualizer
