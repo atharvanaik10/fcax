@@ -20,6 +20,7 @@ class Engine {
  public:
   std::vector<cv::Mat> GetFrames() { return frames_; }
   std::vector<cv::Mat> GetCurrFrames() { return curr_frames_; }
+  double GetFPS() { return fps_; }
 
   std::vector<cv::ogl::Texture2D> GetTextures();
 
@@ -46,6 +47,7 @@ class Engine {
   friend std::string& operator>>(std::string &in_file, Engine &engine);
 
  private:
+
   std::vector<cv::Mat> frames_;
   std::vector<cv::Mat> curr_frames_;
   Stabilizer stabilizer_;

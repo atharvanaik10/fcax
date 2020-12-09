@@ -11,6 +11,8 @@
 #include "cinder/gl/gl.h"
 #include "../other/CinderOpenCV.h"
 #include "cinder/Thread.h"
+#include "cinder/qtime/QuickTimeImplAvf.h"
+#include "cinder/qtime/QuickTimeGlImplAvf.h"
 
 
 namespace fcax {
@@ -29,11 +31,17 @@ class VideoPlayer : public ci::app::App {
  private:
   std::shared_ptr<std::thread> thread_;
   bool processed_ = false;
+  size_t load_count_ = 0;
+
   Engine engine_;
+
   const int kHeight = 720;
   const int kWidth = 1280;
+
+  ci::qtime::MovieGlRef mov_;
   std::vector<cv::Mat> frames_;
   std::vector<cv::Mat> curr_frames_;
+
   std::string in_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
       "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.MOV";
   std::string out_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"

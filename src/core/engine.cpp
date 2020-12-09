@@ -14,8 +14,6 @@ std::string& operator<<(std::string& out_file, const Engine &engine) {
       engine.fps_,engine.frame_size_);
   for(cv::Mat frame:engine.curr_frames_){
     video_out.write(frame);
-    imshow("frame",frame);
-    cv::waitKey(1);
   }
   video_out.release();
   return out_file;
