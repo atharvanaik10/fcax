@@ -35,6 +35,8 @@ class VideoPlayer : public ci::app::App {
    */
   void draw() override;
 
+  void keyDown(ci::app::KeyEvent event) override;
+
   /**
    * This function is called by the secondary thread. It calls engine_'s
    * stabilize method and writes the new video to file in the backend.

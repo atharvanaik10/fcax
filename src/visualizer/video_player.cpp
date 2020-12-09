@@ -17,9 +17,8 @@ VideoPlayer::VideoPlayer() {
 }
 
 void VideoPlayer::setup() {
-  //create before and after qtime movies
+  //create before qtime movies
   mov_before_ = cinder::qtime::MovieGl::create(in_file_);
-  mov_after_ = cinder::qtime::MovieGl::create(out_file_);
   //create new thread which calls backend
   thread_ = std::shared_ptr<std::thread>(
       new std::thread(std::bind(&VideoPlayer::Backend, this)));
@@ -30,15 +29,14 @@ void VideoPlayer::Backend() {
   engine_.Stabilize();
   curr_frames_ = engine_.GetCurrFrames();
   out_file_<<engine_;
+  //create after qtime movie
+  mov_after_ = cinder::qtime::MovieGl::create(out_file_);
   processed_ = true;
 }
 
 void VideoPlayer::draw() {
   ci::gl::clear();
-  if(processed_) {
-    mov_before_->play();
-    mov_after_->play();
-
+  if(processed_ && mov_before_->isPlayable() && mov_after_->isPlayable()) {
     ci::Rectf box_before(glm::vec2(0,kHeight/4), glm::vec2(kWidth/2,3*kHeight/4));
     ci::Rectf box_after(glm::vec2(kWidth/2,kHeight/4), glm::vec2(kWidth,3*kHeight/4));
 
@@ -49,6 +47,28 @@ void VideoPlayer::draw() {
     std::string message = "processing";
     ci::gl::drawStringCentered(message,glm::vec2(kWidth/2,kHeight/2));
   }
+}
+
+void VideoPlayer::keyDown(ci::app::KeyEvent event) {
+   switch (event.getCode()) {
+     case ci::app::KeyEvent::KEY_j:
+       mov_before_->stepBackward();
+       mov_after_->stepBackward();
+       break;
+     case ci::app::KeyEvent::KEY_l:
+       mov_before_->stepForward();
+       mov_after_->stepForward();
+       break;
+     case ci::app::KeyEvent::KEY_k:
+       if(mov_before_->isPlaying()) {
+         mov_before_->stop();
+         mov_after_->stop();
+       } else {
+         mov_before_->play();
+         mov_after_->play();
+       }
+       break;
+   }
 }
 
 } // namespace visualizer
