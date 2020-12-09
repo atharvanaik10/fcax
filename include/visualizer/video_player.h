@@ -49,7 +49,8 @@ class VideoPlayer : public ci::app::App {
   const int kHeight = 720;
   const int kWidth = 1280;
 
-  ci::qtime::MovieGlRef mov_;
+  ci::qtime::MovieGlRef mov_before_;
+  ci::qtime::MovieGlRef mov_after_;
   std::vector<cv::Mat> frames_;
   std::vector<cv::Mat> curr_frames_;
 
