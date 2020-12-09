@@ -21,7 +21,6 @@ class Engine {
   std::vector<cv::Mat> GetFrames() { return frames_; }
   std::vector<cv::Mat> GetCurrFrames() { return curr_frames_; }
   double GetFPS() { return fps_; }
-
   std::vector<cv::ogl::Texture2D> GetTextures();
 
   /**

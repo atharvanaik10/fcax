@@ -23,15 +23,26 @@ class VideoPlayer : public ci::app::App {
  public:
   VideoPlayer();
 
-  void draw() override;
-
+  /**
+   * Sets up the movie using the newly written file and
+   * creates the backend thread
+   */
   void setup() override;
 
+  /**
+   * If the backend has been processed, it plays the movie (draws the video).
+   * Otherwise, it prints "processing"
+   */
+  void draw() override;
+
+  /**
+   * This function is called by the secondary thread. It calls engine_'s
+   * stabilize method and writes the new video to file in the backend.
+   */
   void Backend();
  private:
   std::shared_ptr<std::thread> thread_;
   bool processed_ = false;
-  size_t load_count_ = 0;
 
   Engine engine_;
 
