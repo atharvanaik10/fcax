@@ -40,12 +40,34 @@ TEST_CASE("Test frame extraction") {
     file>> engine;
     REQUIRE(engine.GetFrames().size() == 42);
   }
-  SECTION("Thicc file mov") {
+}
+
+TEST_CASE("Test fps and frame size") {
+  Engine engine;
+  std::string file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
+      "FinalProject/final-project-atharvanaik10/tests/data/test1.mov";
+  file>>engine;
+  REQUIRE(abs(engine.GetFPS() - 60) < 1);
+  REQUIRE(engine.GetFrameSize().height == 1080);
+  REQUIRE(engine.GetFrameSize().width == 1920);
+}
+
+TEST_CASE("Test stabilization and color correction") {
+  SECTION("Stabilization") {
     Engine engine;
     std::string file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-        "FinalProject/final-project-atharvanaik10/tests/data/test5.mov";
-    file>> engine;
-    REQUIRE(engine.GetFrames().size() == 39);
+        "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.mov";
+    file>>engine;
+    engine.Stabilize();
+    REQUIRE(engine.GetCurrFrames().size() == engine.GetFrames().size());
+  }
+  SECTION("CC") {
+    Engine engine;
+    std::string file = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
+        "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.mov";
+    file>>engine;
+    engine.ColorCorrect();
+    REQUIRE(engine.GetCurrFrames().size() == engine.GetFrames().size());
   }
 }
 

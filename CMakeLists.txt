@@ -65,7 +65,7 @@ list(APPEND SOURCE_FILES
         src/visualizer/video_player.cpp)
 
 list(APPEND TEST_FILES
-        tests/frame_test.cpp)
+        tests/engine_test.cpp)
 
 ci_make_app(
         APP_NAME        final-cut-amateur-x
@@ -78,7 +78,7 @@ ci_make_app(
 ci_make_app(
         APP_NAME        fcax-test
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         tests/frame_test.cpp ${SOURCE_FILES} ${TEST_FILES}
+        SOURCES tests/engine_test.cpp ${SOURCE_FILES} ${TEST_FILES}
         INCLUDES        include
         LIBRARIES       catch2 ${OpenCV_LIBS}
 )
