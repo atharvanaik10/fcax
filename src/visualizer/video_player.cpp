@@ -20,7 +20,8 @@ VideoPlayer::VideoPlayer() {
 void VideoPlayer::setup() {
   //create before qtime movies
   mov_before_ = cinder::qtime::MovieGl::create(temp_file_);
-  duration_ = mov_before_->getDuration();;
+  duration_ = mov_before_->getDuration();
+  num_frames_ = mov_before_->getNumFrames();
 
   //create new thread which calls backend
   thread_ = std::shared_ptr<std::thread>(
@@ -99,6 +100,32 @@ void VideoPlayer::HandlePlaybar() {
 
 
 }
+
+void VideoPlayer::mouseDown(ci::app::MouseEvent event) {
+  if(processed_) {
+    double time = 0;
+    if (event.isLeft()) {
+      glm::vec2 mouse_pos = event.getPos();
+      if (mouse_pos.y >= ((3*kHeight/4)+kPlaybarPadding) &&
+          mouse_pos.y <= ((3*kHeight/4)+kPlaybarPadding) + kPlaybarHeight) {
+          if (mouse_pos.x >= (kWidth-kPlaybarLength)/2 &&
+            mouse_pos.x <=((kWidth-kPlaybarLength)/2 + kPlaybarLength)) {
+            time = (mouse_pos.x - (kWidth-kPlaybarLength)/2)/kPlaybarLength;
+            mov_before_->seekToFrame((int)(time*num_frames_));
+            mov_after_->seekToFrame((int)(time*num_frames_));
+          }
+      }
+    }
+  }
+}
+
+void VideoPlayer::mouseDrag(ci::app::MouseEvent event) {
+  if(processed_) {
+    mouseDown(event);
+  }
+}
+
+
 
 } // namespace visualizer
 

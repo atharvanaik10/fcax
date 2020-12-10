@@ -50,6 +50,11 @@ class VideoPlayer : public ci::app::App {
    */
   void keyDown(ci::app::KeyEvent event) override;
 
+  void mouseDown(ci::app::MouseEvent event) override;
+  void mouseDrag(ci::app::MouseEvent event) override;
+
+
+
   /**
    * This function is called by the secondary thread. It calls engine_'s
    * stabilize method and writes the new video to file in the backend.
@@ -70,6 +75,7 @@ class VideoPlayer : public ci::app::App {
   ci::qtime::MovieGlRef mov_before_;
   ci::qtime::MovieGlRef mov_after_;
   float duration_;
+  int num_frames_;
   std::vector<cv::Mat> frames_;
   std::vector<cv::Mat> curr_frames_;
 
