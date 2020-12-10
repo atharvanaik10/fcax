@@ -20,6 +20,7 @@ VideoPlayer::VideoPlayer() {
 void VideoPlayer::setup() {
   //create before qtime movies
   mov_before_ = cinder::qtime::MovieGl::create(temp_file_);
+  duration_ = mov_before_->getDuration();;
 
   //create new thread which calls backend
   thread_ = std::shared_ptr<std::thread>(
@@ -56,34 +57,47 @@ void VideoPlayer::draw() {
 }
 
 void VideoPlayer::keyDown(ci::app::KeyEvent event) {
-   switch (event.getCode()) {
-     case ci::app::KeyEvent::KEY_j:
-       mov_before_->stepBackward();
-       mov_after_->stepBackward();
-       break;
-     case ci::app::KeyEvent::KEY_l:
-       mov_before_->stepForward();
-       mov_after_->stepForward();
-       break;
-     case ci::app::KeyEvent::KEY_k:
-       if(mov_before_->isPlaying()) {
-         mov_before_->stop();
-         mov_after_->stop();
-       } else {
-         mov_before_->play();
-         mov_after_->play();
-       }
-       break;
-   }
+  if(processed_) {
+    switch (event.getCode()) {
+      case ci::app::KeyEvent::KEY_j:
+        mov_before_->stepBackward();
+        mov_after_->stepBackward();
+        break;
+      case ci::app::KeyEvent::KEY_l:
+        mov_before_->stepForward();
+        mov_after_->stepForward();
+        break;
+      case ci::app::KeyEvent::KEY_k:
+        if (mov_before_->isPlaying()) {
+          mov_before_->stop();
+          mov_after_->stop();
+        } else {
+          mov_before_->play();
+          mov_after_->play();
+        }
+        break;
+    }
+  }
 }
 
 void VideoPlayer::HandlePlaybar() {
+  float curr_time = mov_before_->getCurrentTime();
+
   glm::vec2 playbar_size(kPlaybarLength,kPlaybarHeight);
   glm::vec2 playbar_top_left_corner((kWidth-kPlaybarLength)/2,
                                     (3*kHeight/4)+kPlaybarPadding);
   ci::Rectf playbar(playbar_top_left_corner,
                     playbar_top_left_corner+playbar_size);
   ci::gl::drawStrokedRect(playbar);
+
+  glm::vec2 fullbar_size(kPlaybarLength*curr_time/duration_,kPlaybarHeight);
+  glm::vec2 fullbar_top_left_corner((kWidth-kPlaybarLength)/2,
+                                    (3*kHeight/4)+kPlaybarPadding);
+  ci::Rectf fullbar(fullbar_top_left_corner,
+                    fullbar_top_left_corner+fullbar_size);
+  ci::gl::drawSolidRect(fullbar);
+
+
 }
 
 } // namespace visualizer
