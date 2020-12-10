@@ -125,8 +125,6 @@ void VideoPlayer::mouseDrag(ci::app::MouseEvent event) {
   }
 }
 
-
-
 } // namespace visualizer
 
 } // namespace fcax

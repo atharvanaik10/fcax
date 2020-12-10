@@ -23,6 +23,9 @@ namespace visualizer {
 
 class VideoPlayer : public ci::app::App {
  public:
+  /**
+   * Sets up engine with the in_file and sets window size and frame rate
+   */
   VideoPlayer();
 
   /**
@@ -50,6 +53,11 @@ class VideoPlayer : public ci::app::App {
    */
   void keyDown(ci::app::KeyEvent event) override;
 
+  /**
+   * Checks for mouse position and adjusts playbar
+   * and seeks video to correct time
+   * @param event
+   */
   void mouseDown(ci::app::MouseEvent event) override;
   void mouseDrag(ci::app::MouseEvent event) override;
 
