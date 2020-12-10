@@ -21,10 +21,28 @@ To install homebrew, type this in your terminal (more information [here](brew.sh
 
 ##Using the App
 Once you've installed OpenCV, you should be ready to go. Open the project in your favourite IDE,
-and run "final-cut-amateur-x."
+and edit your input and output filepaths in the `video_player.h` file. 
+Once you've done this, you can simply run tha app.
 
-Now that the original video file has been loaded, a Cinder GUI will show up. 
-Clicking the stabilize or color correct buttons should work as intended. 
+Now that the original video file has been loaded, a Cinder GUI will show up 
+with the original video, and the corrected video side by side.
+
 The playbar will allow you to seek to desired locations in the video. 
+
 You can use the `k` key to play/pause, `j` to move one frame back, and `l` to move one frame forward.
+
+##How it works
+FCAX makes use of the [OpenCV api](docs.opencv.org) to do most of the heavy lifting. 
+
+The Stabilizer calculates frame by frame changes in the video using `cv::goodFeaturesToTrack()`, and then creates
+appropriate transformations so the "good features" move in a smooth motion throughout the video. The engine then applies
+this transformation accross the video and writes it to file. 
+
+The Color Corrector uses OpenCV's white balancer (`cv::xphoto::WhiteBalancer`) to balance the colors in the video. 
+It creates a new version of the images which are then passed to engine to write to file.
+
+The CinderGUI takes in the original file (and creates a copy of it so as to not change the original) 
+and also the newly written file by the engine.
+It then shows the copy and the edited versions side by side. A keyboard listener listens for input keys
+and a mouse listener listens for clicks and drags. 
 
