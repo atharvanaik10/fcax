@@ -9,6 +9,7 @@
 #include <string>
 
 #include "stabilizer.h"
+#include "color_corrector.h"
 
 #include "opencv2/opencv.hpp"
 #include "opencv2/core/opengl.hpp"
@@ -30,6 +31,8 @@ class Engine {
    */
   void Stabilize();
 
+  void ColorCorrect();
+
   /**
    * Output operator writes frames to file
    * @param out_folder folder t o write to
@@ -47,10 +50,12 @@ class Engine {
   friend std::string& operator>>(std::string &in_file, Engine &engine);
 
  private:
-
   std::vector<cv::Mat> frames_;
   std::vector<cv::Mat> curr_frames_;
+
   Stabilizer stabilizer_;
+  ColorCorrector corrector_;
+
   double fps_;
   cv::Size frame_size_;
 };

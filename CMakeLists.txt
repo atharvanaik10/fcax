@@ -57,7 +57,8 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND CORE_SOURCE_FILES
         src/core/engine.cpp
-        src/core/stabilizer.cpp)
+        src/core/stabilizer.cpp
+        src/core/color_corrector.cpp)
 
 list(APPEND SOURCE_FILES
         ${CORE_SOURCE_FILES}

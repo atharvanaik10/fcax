@@ -28,6 +28,7 @@ void VideoPlayer::setup() {
 
 void VideoPlayer::Backend() {
   processed_ = false;
+  engine_.ColorCorrect();
   engine_.Stabilize();
   curr_frames_ = engine_.GetCurrFrames();
   out_file_<<engine_;

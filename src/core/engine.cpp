@@ -60,6 +60,14 @@ void Engine::Stabilize() {
 
 }
 
+void Engine::ColorCorrect() {
+  curr_frames_>>corrector_;
+  std::cout<<"Getting illuminants"<<std::endl;
+  corrector_.EstimateIlluminants();
+  curr_frames_ = corrector_.GetFrames();
+  std::cout<<"Corrected"<<std::endl;
+}
+
 std::vector<cv::ogl::Texture2D> Engine::GetTextures() {
   std::vector<cv::ogl::Texture2D> textures;
   for(cv::Mat frame:frames_) {
