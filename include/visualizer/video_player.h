@@ -64,9 +64,9 @@ class VideoPlayer : public ci::app::App {
   std::vector<cv::Mat> curr_frames_;
 
   std::string in_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.MOV";
+      "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.mov";
   std::string temp_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/fcax_before.MOV";
+      "FinalProject/final-project-atharvanaik10/tests/data/fcax_before.mp4";
   std::string out_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
       "FinalProject/final-project-atharvanaik10/tests/data/fcax_after.mp4";
 };

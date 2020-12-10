@@ -23,3 +23,8 @@ To install homebrew, type this in your terminal (more information [here](brew.sh
 Once you've installed OpenCV, you should be ready to go. Open the project in your favourite IDE,
 and run "final-cut-amateur-x."
 
+Now that the original video file has been loaded, a Cinder GUI will show up. 
+Clicking the stabilize or color correct buttons should work as intended. 
+The playbar will allow you to seek to desired locations in the video. 
+You can use the `k` key to play/pause, `j` to move one frame back, and `l` to move one frame forward.
+
