@@ -37,8 +37,17 @@ class VideoPlayer : public ci::app::App {
    */
   void draw() override;
 
+  /**
+   * Handles the playbar and the playhead by drawing them and
+   * updating them with mouse click
+   */
   void HandlePlaybar();
 
+  /**
+   * Checks for j,k,l keys pressed to move back one frame, play/pause,
+   * or move forward one frame.
+   * @param event
+   */
   void keyDown(ci::app::KeyEvent event) override;
 
   /**
@@ -64,7 +73,7 @@ class VideoPlayer : public ci::app::App {
   std::vector<cv::Mat> curr_frames_;
 
   std::string in_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
-      "FinalProject/final-project-atharvanaik10/tests/data/stabtest2.mov";
+      "FinalProject/final-project-atharvanaik10/tests/data/IMG_1462.mov";
   std::string temp_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"
       "FinalProject/final-project-atharvanaik10/tests/data/fcax_before.mp4";
   std::string out_file_ = "/Users/atharvanaik/CLionProjects/Cinder/my-projects/"

@@ -21,14 +21,17 @@ class ColorCorrector {
    * Returns the frames of the corrector
    * @return vector of mat frames
    */
-  std::vector<cv::Mat> GetFrames() { return transforms_; }
+  std::vector<cv::Mat> GetCurrFrames() { return curr_Frames_; }
 
+  /**
+   * Uses OpenCV's white balancer to correct all the frames individually
+   */
   void EstimateIlluminants();
 
   /**
-   * Input operator overloaded to take in frames and convert to grayscale
+   * Input operator overloaded to take in frames
    * @param frames frames
-   * @param stabilizer stabilizer
+   * @param corrector corrector
    * @return frames
    */
   friend std::vector<cv::Mat>& operator>>
@@ -36,11 +39,7 @@ class ColorCorrector {
 
  private:
   std::vector<cv::Mat> frames_;
-  std::vector<cv::Mat> transforms_;
-  //double kSaturationPct = 0.1;
-
-  cv::Mat GetTransform(cv::Mat frame);
-
+  std::vector<cv::Mat> curr_Frames_;
 };
 
 } // namespace fcax

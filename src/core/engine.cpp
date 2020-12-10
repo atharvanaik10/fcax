@@ -64,7 +64,7 @@ void Engine::ColorCorrect() {
   curr_frames_>>corrector_;
   std::cout<<"Getting illuminants"<<std::endl;
   corrector_.EstimateIlluminants();
-  curr_frames_ = corrector_.GetFrames();
+  curr_frames_ = corrector_.GetCurrFrames();
   std::cout<<"Corrected"<<std::endl;
 }
 
